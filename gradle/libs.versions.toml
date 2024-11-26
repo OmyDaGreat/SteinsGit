@@ -1,0 +1,13 @@
+[versions]
+precompose = "1.6.2"
+jgit = "7.0.0.202409031743-r"
+spotless = "7.0.0.BETA4"
+maleficnav = "1.0.0"
+
+[libraries]
+precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
+jgit-parent = { group = "org.eclipse.jgit", name = "org.eclipse.jgit-parent", version.ref = "jgit" }
+maleficnav = { group = "xyz.malefic", name = "maleficnav", version.ref = "maleficnav" }
+
+[plugins]
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

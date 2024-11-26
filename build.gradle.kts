@@ -4,7 +4,7 @@ plugins {
   kotlin("jvm")
   id("org.jetbrains.compose")
   id("org.jetbrains.kotlin.plugin.compose")
-  id("com.diffplug.spotless") version "7.0.0.BETA4"
+  alias(libs.plugins.spotless)
 }
 
 group = "xyz.malefic.steinsgit"
@@ -16,15 +16,13 @@ repositories {
   google()
 }
 
-val preCompose = "1.6.2"
-val jgit = "7.0.0.202409031743-r"
-
 dependencies {
   implementation(compose.desktop.currentOs)
   implementation(compose.animation)
   implementation(compose.foundation)
-  implementation("moe.tlaster:precompose:$preCompose")
-  implementation("org.eclipse.jgit:org.eclipse.jgit-parent:$jgit")
+  implementation(libs.precompose)
+  implementation(libs.jgit.parent)
+  implementation(libs.maleficnav)
 }
 
 compose.desktop {
