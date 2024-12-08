@@ -2,15 +2,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
+import git.GitRepository
 import screens.App1
 import screens.Home
+import screens.RepoList
 import xyz.malefic.components.precompose.NavWindow
 import xyz.malefic.components.text.typography.Heading1
 import xyz.malefic.extensions.standard.get
@@ -26,7 +29,7 @@ import xyz.malefic.theme.MaleficTheme
  * theme based on the system's theme.
  */
 fun main() = application {
-  NavWindow(onCloseRequest = ::exitApplication) {
+  NavWindow(onCloseRequest = ::exitApplication, title = "Steins;Git") {
     // Determine the theme file path based on the system's theme (dark or light)
     val themeInputStream =
       javaClass.getResourceAsStream(
@@ -52,12 +55,14 @@ fun main() = application {
 @Composable
 fun NavigationMenu() {
   Box(
-    modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+    modifier = Modifier.fillMaxSize().background(colors.background),
     contentAlignment = Alignment.Center,
   ) {
+    val currentRepo = remember { mutableStateOf<GitRepository?>(null) }
     Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+      RepoList { repo -> currentRepo.value = repo }
+      Divider(color = colors.onBackground, modifier = Modifier.fillMaxHeight().width(1.dp))
       RoutedSidebar()
-      Divider(color = Color.Black, modifier = Modifier.fillMaxHeight().width(1.dp))
       RoutedNavHost()
     }
   }

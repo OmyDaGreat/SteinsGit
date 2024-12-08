@@ -13,4 +13,4 @@ pluginManagement {
   }
 }
 
-rootProject.name = "ComposeDesktopTemplate"
+rootProject.name = "Steins;Git"
