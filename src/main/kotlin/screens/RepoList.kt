@@ -1,3 +1,5 @@
+@file:Suppress("kotlin:S1128")
+
 package screens
 
 import androidx.compose.foundation.background
