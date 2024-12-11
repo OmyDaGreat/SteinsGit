@@ -14,4 +14,6 @@ data class GitRepository(
   var remoteUrl: String? = null,
   /** Indicates if there are uncommited changes */
   var isDirty: Boolean = false,
+  /** Indicates whether to automatically update or not */
+  var autoUpdate: Boolean = false,
 ) : Serializable

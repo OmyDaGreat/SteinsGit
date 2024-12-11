@@ -2,30 +2,40 @@ package git.commands
 
 import git.GitRepository
 import java.io.File
+import kotlinx.coroutines.*
 
 /**
  * Finds all Git repositories in the user's home directory and its subdirectories.
  *
  * @return a list of `GitRepository` objects representing the found repositories.
  */
-fun findGitRepositories(): List<GitRepository> {
+fun findGitRepositories(): List<GitRepository> = runBlocking {
   val repos = mutableListOf<GitRepository>()
   println("Searching for Git repositories...")
-  File(System.getProperty("user.home"))
-    .walk()
-    .filter { it.isDirectory && File(it, ".git").exists() }
-    .forEach { repoDir ->
-      println("Found: ${repoDir.name}")
 
-      val name = repoDir.name
-      val path = repoDir.absolutePath
-      val currentBranch = runGitCommand(repoDir, "rev-parse --abbrev-ref HEAD")
-      val remoteUrl = runGitCommand(repoDir, "remote get-url origin")
-      val isDirty = runGitCommand(repoDir, "status --porcelain").isNotEmpty()
+  val repoDirs =
+    File(System.getProperty("user.home"))
+      .walk()
+      .filter { it.isDirectory && File(it, ".git").exists() }
+      .toList()
 
-      repos.add(GitRepository(name, path, currentBranch, remoteUrl, isDirty))
+  val deferredRepos =
+    repoDirs.map { repoDir ->
+      async(Dispatchers.IO) {
+        println("Found: ${repoDir.name}")
+
+        val name = repoDir.name
+        val path = repoDir.absolutePath
+        val currentBranch = runGitCommand(repoDir, "rev-parse --abbrev-ref HEAD")
+        val remoteUrl = runGitCommand(repoDir, "remote get-url origin")
+        val isDirty = runGitCommand(repoDir, "status --porcelain").isNotEmpty()
+
+        GitRepository(name, path, currentBranch, remoteUrl, isDirty)
+      }
     }
-  return repos
+
+  repos.addAll(deferredRepos.awaitAll())
+  repos
 }
 
 /**

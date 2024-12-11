@@ -13,16 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
 import git.GitRepository
 import java.io.InputStream
-import screens.App1
 import screens.Home
-import screens.RepoList
+import screens.LineEditing
+import screens.MaterialSidebar
 import xyz.malefic.components.precompose.NavWindow
-import xyz.malefic.components.text.typography.Heading1
-import xyz.malefic.extensions.standard.get
 import xyz.malefic.navigate.RouteManager
 import xyz.malefic.navigate.RouteManager.RoutedNavHost
-import xyz.malefic.navigate.RouteManager.RoutedSidebar
-import xyz.malefic.navigate.RouteManager.navi
 import xyz.malefic.navigate.config.MalefiConfigLoader
 import xyz.malefic.theme.MaleficTheme
 
@@ -54,16 +50,8 @@ fun composableMap(
   currentRepo: MutableState<GitRepository?>
 ): Map<String, @Composable (List<String?>) -> Unit> {
   return mapOf(
-    "App1" to { params -> App1(id = params[0]!!, name = params[1, null]) },
-    "Home" to { _ -> Home(navi) },
-    "Text" to { params -> Heading1(text = params[0, "Nope."]) },
-    "RepoList" to
-      { _ ->
-        RepoList { repo ->
-          currentRepo.value = repo
-          println("Selected repo: ${repo.name} & $currentRepo")
-        }
-      },
+    "Home" to { _ -> Home(currentRepo) },
+    "LineEditing" to { _ -> LineEditing(currentRepo.value!!) { repo -> currentRepo.value = repo } },
   )
 }
 
@@ -102,7 +90,7 @@ fun MainLayout() {
   ) {
     Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
       Divider(color = colors.onBackground, modifier = Modifier.fillMaxHeight().width(1.dp))
-      RoutedSidebar()
+      MaterialSidebar()
       RoutedNavHost()
     }
   }

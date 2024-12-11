@@ -5,13 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c306fba5-d763-43e0-afc3-245039b590db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/routes.mfc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/Globals.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/screens/LineEditing.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/screens/MaterialSidebar.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/screens/Paradox.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/PreferenceClear.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/screens/RepoList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/screens/RepoList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/routes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/git/GitRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/git/GitRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/git/commands/FindRepos.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/git/commands/FindRepos.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/git/commands/autoUpdate.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/git/commands/autoUpdate.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/screens/App1.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/screens/Home.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/screens/Home.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/screens/RepoList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/screens/Worldlines.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/routes.mfc" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/routes.mfc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +83,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/OmyDaGreat/SteinsGit.git&quot;,
-    &quot;accountId&quot;: &quot;bc0bcb10-ab02-4b79-ae43-679c5ad754f3&quot;
+    &quot;accountId&quot;: &quot;35a4d74c-3c9a-4b11-b301-32f5a8b9d7db&quot;
   }
 }</component>
   <component name="KotlinScriptingSettings">
@@ -91,34 +101,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Gradle.Build SteinsGit.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.SteinsGit [spotlessApply].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.desktop.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.Build &amp; Run.executor&quot;: &quot;Run&quot;,
-    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Malefic/Documents/Programming/Personal/SteinsGit&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Gradle.Build SteinsGit.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.SteinsGit [spotlessApply].executor": "Run",
+    "Gradle.desktop.executor": "Run",
+    "Kotlin.Build & Run.executor": "Run",
+    "Kotlin.Clear Preferences.executor": "Run",
+    "Kotlin.MainKt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Malefic/Documents/Programming/Personal/SteinsGit",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Kotlin.Build &amp; Run">
     <configuration name="Build &amp; Run" type="JetRunConfigurationType">
       <option name="MAIN_CLASS_NAME" value="MainKt" />
       <module name="Steins_Git.main" />
+      <shortenClasspath name="NONE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Clear Preferences" type="JetRunConfigurationType">
+      <option name="MAIN_CLASS_NAME" value="PreferenceClearKt" />
+      <module name="Steins_Git.test" />
       <shortenClasspath name="NONE" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,12 +153,17 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Gradle.desktop" />
+      <item itemvalue="Kotlin.Clear Preferences" />
+      <item itemvalue="Kotlin.Build &amp; Run" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.21565.193" />
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-IU-243.21565.193" />
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
       </set>
     </attachedChunks>
   </component>
@@ -159,6 +184,12 @@
       <workItem from="1733700409035" duration="254000" />
       <workItem from="1733701192334" duration="267000" />
       <workItem from="1733702848671" duration="224000" />
+      <workItem from="1733937362416" duration="803000" />
+      <workItem from="1733938246763" duration="436000" />
+      <workItem from="1733938740834" duration="104000" />
+      <workItem from="1733938868097" duration="16000" />
+      <workItem from="1733938899923" duration="123000" />
+      <workItem from="1733939042030" duration="8242000" />
     </task>
     <servers />
   </component>

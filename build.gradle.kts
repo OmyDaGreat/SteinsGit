@@ -24,6 +24,8 @@ dependencies {
   implementation(libs.malefic.theming)
   implementation(libs.malefic.prefs)
   implementation(libs.malefic.nav)
+  implementation(libs.filekit.compose)
+  implementation(libs.filekit.core)
   implementation(libs.precompose)
   implementation(libs.okhttp)
   implementation(libs.jgit)

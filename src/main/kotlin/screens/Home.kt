@@ -1,33 +1,32 @@
 package screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import moe.tlaster.precompose.navigation.Navigator
+import git.GitRepository
 import xyz.malefic.components.box.BackgroundBox
 
+/**
+ * A composable function that represents the Home screen. It displays the RepoList on the left and
+ * the Paradox on the right.
+ */
 @Composable
-fun Home(navi: Navigator) {
-  var text by remember { mutableStateOf("Hello, World 2!") }
-
+fun Home(currentRepo: MutableState<GitRepository?>) {
   BackgroundBox(contentAlignment = Alignment.Center) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.Center,
+    Row(
+      horizontalArrangement = Arrangement.Start,
+      verticalAlignment = Alignment.Top,
+      modifier = Modifier.fillMaxSize().padding(16.dp),
     ) {
-      Button(onClick = { text = "Hello, Desktop 2!" }) { Text(text) }
-      Spacer(modifier = Modifier.height(16.dp))
-      Button(onClick = { navi.navigate("app1/123456") }) { Text("Go to App1") }
-      Spacer(modifier = Modifier.height(16.dp))
-      Button(onClick = { navi.navigate("app1/123456/Om Gupta") }) {
-        Text("Go to App1 But With a Name")
+      // Column for RepoList
+      Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 8.dp)) {
+        Worldlines(onRepoSelected = { repo -> currentRepo.value = repo })
       }
-      Spacer(modifier = Modifier.height(16.dp))
-      Button(onClick = { navi.navigate("hidden/boo!") }) { Text("Go to Hidden Page") }
+
+      // Column for Paradox
+      Column(modifier = Modifier.weight(2f).fillMaxHeight().padding(start = 8.dp)) { Paradox() }
     }
   }
 }

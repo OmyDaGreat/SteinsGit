@@ -20,6 +20,7 @@ import git.commands.findGitRepositories
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import prefNode
 import xyz.malefic.components.text.typography.Body1
 import xyz.malefic.components.text.typography.Body2
 import xyz.malefic.extensions.composables.clickableWithRipple
@@ -31,9 +32,9 @@ import xyz.malefic.prefs.collection.PersistentArrayList
  * @param onRepoSelected A callback function that is invoked when a repository is selected.
  */
 @Composable
-fun RepoList(onRepoSelected: (GitRepository) -> Unit) {
+fun Worldlines(onRepoSelected: (GitRepository) -> Unit) {
   val repos = remember { mutableStateListOf<GitRepository>() }
-  val persistentRepos = remember { PersistentArrayList<GitRepository>("repos") }
+  val persistentRepos = remember { PersistentArrayList<GitRepository>("steins;repo", prefNode) }
 
   if (persistentRepos.isEmpty()) {
     persistentRepos.addAll(findGitRepositories())

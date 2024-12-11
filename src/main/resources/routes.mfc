@@ -1,5 +1,3 @@
 routes:
-  home -> Home
-  app1 -> App1? [id, name?]
-  RepoList* -> RepoList
-  hidden -> Text? [text?]
+  home* -> Home
+  LineEditing -> LineEditing
