@@ -2,7 +2,7 @@
 spotless = "7.0.0.BETA4"
 precompose = "1.6.2"
 nav = "1.1.5"
-ext = "1.1.4"
+ext = "1.1.5"
 comps = "1.0.5"
 theme = "1.0.2"
 prefs = "1.2.3"
