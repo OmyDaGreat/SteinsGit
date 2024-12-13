@@ -13,4 +13,4 @@ pluginManagement {
   }
 }
 
-rootProject.name = "Steins;Git"
+rootProject.name = "SteinsGit"

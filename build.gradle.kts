@@ -37,7 +37,7 @@ compose.desktop {
 
     nativeDistributions {
       targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-      packageName = "ComposeDesktopTemplate"
+      packageName = "SteinsGit"
       packageVersion = "1.0.0"
     }
   }
