@@ -1,6 +1,6 @@
 @file:Suppress("kotlin:S1128")
 
-package screens
+package xyz.malefic.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -15,12 +15,12 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import git.GitRepository
-import git.commands.findGitRepositories
+import xyz.malefic.git.GitRepository
+import xyz.malefic.git.commands.findGitRepositories
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import prefNode
+import xyz.malefic.prefNode
 import xyz.malefic.components.text.typography.Body1
 import xyz.malefic.components.text.typography.Body2
 import xyz.malefic.extensions.composables.clickableWithRipple

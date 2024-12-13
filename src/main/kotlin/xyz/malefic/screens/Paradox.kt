@@ -1,4 +1,4 @@
-package screens
+package xyz.malefic.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -6,7 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import git.commands.cloneRepository
+import xyz.malefic.git.commands.cloneRepository
 import io.github.vinceglb.filekit.compose.rememberDirectoryPickerLauncher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

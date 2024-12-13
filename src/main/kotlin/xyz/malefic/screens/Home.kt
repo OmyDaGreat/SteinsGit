@@ -1,11 +1,11 @@
-package screens
+package xyz.malefic.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import git.GitRepository
+import xyz.malefic.git.GitRepository
 import xyz.malefic.components.box.BackgroundBox
 
 /**

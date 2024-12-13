@@ -1,6 +1,6 @@
-package git.commands
+package xyz.malefic.git.commands
 
-import git.GitRepository
+import xyz.malefic.git.GitRepository
 import java.io.File
 import java.time.LocalDateTime.now
 import org.eclipse.jgit.api.Git

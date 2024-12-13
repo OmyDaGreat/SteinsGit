@@ -1,3 +1,5 @@
+package xyz.malefic
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -11,11 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
-import git.GitRepository
+import xyz.malefic.git.GitRepository
 import java.io.InputStream
-import screens.Home
-import screens.LineEditing
-import screens.MaterialSidebar
+import xyz.malefic.screens.Home
+import xyz.malefic.screens.LineEditing
+import xyz.malefic.screens.MaterialSidebar
 import xyz.malefic.components.precompose.NavWindow
 import xyz.malefic.navigate.RouteManager
 import xyz.malefic.navigate.RouteManager.RoutedNavHost

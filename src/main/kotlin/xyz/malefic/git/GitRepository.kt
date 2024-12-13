@@ -1,4 +1,4 @@
-package git
+package xyz.malefic.git
 
 import java.io.Serializable
 

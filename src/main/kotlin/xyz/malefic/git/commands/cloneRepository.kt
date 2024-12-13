@@ -1,4 +1,4 @@
-package git.commands
+package xyz.malefic.git.commands
 
 import java.io.File
 import org.eclipse.jgit.api.Git

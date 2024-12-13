@@ -1,6 +1,6 @@
-package git.commands
+package xyz.malefic.git.commands
 
-import git.GitRepository
+import xyz.malefic.git.GitRepository
 import java.io.File
 import kotlinx.coroutines.*
 
@@ -46,6 +46,6 @@ fun findGitRepositories(): List<GitRepository> = runBlocking {
  * @return the output of the Git command.
  */
 fun runGitCommand(repoDir: File, command: String): String {
-  val process = ProcessBuilder("git", *command.split(" ").toTypedArray()).directory(repoDir).start()
+  val process = ProcessBuilder("xyz/malefic/git/malefic/git", *command.split(" ").toTypedArray()).directory(repoDir).start()
   return process.inputStream.bufferedReader().readText().trim()
 }
