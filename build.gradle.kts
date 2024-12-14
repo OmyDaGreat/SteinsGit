@@ -28,6 +28,7 @@ dependencies {
   implementation(libs.filekit.core)
   implementation(libs.precompose)
   implementation(libs.kermit)
+  implementation(libs.slf4j)
   implementation(libs.jgit)
 }
 

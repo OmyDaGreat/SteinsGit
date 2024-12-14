@@ -9,6 +9,7 @@ prefs = "1.2.3"
 git = "7.1.0.202411261347-r"
 fk = "0.8.7"
 kermit = "2.0.4"
+slf = "2.0.9"
 
 [libraries]
 precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
@@ -21,6 +22,7 @@ jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "g
 filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fk" }
 filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fk" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
+slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf" }
 
 [plugins]
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

@@ -31,7 +31,7 @@ import xyz.malefic.prefs.collection.PersistentArrayList
  * @param onRepoSelected A callback function that is invoked when a repository is selected.
  */
 @Composable
-fun Worldlines(onRepoSelected: (GitRepository) -> Unit) {
+fun Worldlines(onRepoSelected: (GitRepository) -> Unit, currentRepo: MutableState<GitRepository?>) {
   val repos = remember { mutableStateListOf<GitRepository>() }
   val persistentRepos = remember { PersistentArrayList<GitRepository>("steins;repo", prefNode) }
 
@@ -39,6 +39,9 @@ fun Worldlines(onRepoSelected: (GitRepository) -> Unit) {
 
   LaunchedEffect(Unit) {
     withContext(Dispatchers.IO) {
+      if (currentRepo.value == null && repos.isNotEmpty()) {
+        currentRepo.value = repos.first()
+      }
       findGitRepositoriesFlow().collect { repo ->
         if (persistentRepos.none { it.path == repo.path }) {
           persistentRepos.add(repo)

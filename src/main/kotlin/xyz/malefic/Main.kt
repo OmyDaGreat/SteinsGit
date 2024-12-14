@@ -4,10 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme.colors
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
@@ -22,6 +19,7 @@ import xyz.malefic.navigate.config.MalefiConfigLoader
 import xyz.malefic.screens.Home
 import xyz.malefic.screens.LineEditing
 import xyz.malefic.screens.MaterialSidebar
+import xyz.malefic.screens.parts.SelectWorldlineMessage
 
 /**
  * The main entry point of the application. Sets up the main window and initializes the application
@@ -57,7 +55,11 @@ fun composableMap(
 ): Map<String, @Composable (List<String?>) -> Unit> {
   return mapOf(
     "Home" to { _ -> Home(currentRepo) },
-    "LineEditing" to { _ -> LineEditing(currentRepo.value!!) { repo -> currentRepo.value = repo } },
+    "LineEditing" to
+      { _ ->
+        currentRepo.value?.let { LineEditing(it) { repo -> currentRepo.value = repo } }
+          ?: SelectWorldlineMessage()
+      },
   )
 }
 
@@ -78,9 +80,5 @@ fun Any.getThemeInputStream(): InputStream =
  * @param composableMap A map of composable functions for different routes.
  */
 fun Any.initializeRouteManager(composableMap: Map<String, @Composable (List<String?>) -> Unit>) {
-  RouteManager.initialize(
-    composableMap,
-    this::class.java.getResourceAsStream("/routes.mfc")!!,
-    MalefiConfigLoader(),
-  )
+  RouteManager.initialize(composableMap, grass("/routes.mfc")!!, MalefiConfigLoader())
 }

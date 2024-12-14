@@ -24,7 +24,7 @@ fun Home(currentRepo: MutableState<GitRepository?>) {
     ) {
       // Column for RepoList
       Column(modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 8.dp)) {
-        Worldlines(onRepoSelected = { repo -> currentRepo.value = repo })
+        Worldlines(onRepoSelected = { repo -> currentRepo.value = repo }, currentRepo)
       }
 
       // Column for Paradox
