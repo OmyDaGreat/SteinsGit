@@ -5,8 +5,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import xyz.malefic.git.GitRepository
 import xyz.malefic.components.box.BackgroundBox
+import xyz.malefic.git.GitRepository
+import xyz.malefic.screens.parts.Paradox
+import xyz.malefic.screens.parts.Worldlines
 
 /**
  * A composable function that represents the Home screen. It displays the RepoList on the left and

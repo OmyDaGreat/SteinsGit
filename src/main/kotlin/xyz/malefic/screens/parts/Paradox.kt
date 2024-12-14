@@ -1,4 +1,4 @@
-package xyz.malefic.screens
+package xyz.malefic.screens.parts
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -6,13 +6,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import xyz.malefic.git.commands.cloneRepository
 import io.github.vinceglb.filekit.compose.rememberDirectoryPickerLauncher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import xyz.malefic.components.text.typography.Body1
 import xyz.malefic.components.text.typography.Heading5
+import xyz.malefic.git.commands.cloneRepository
 
 /** Composable function that provides a UI for cloning a repository. */
 @Composable

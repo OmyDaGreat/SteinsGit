@@ -2,25 +2,25 @@
 spotless = "7.0.0.BETA4"
 precompose = "1.6.2"
 nav = "1.1.5"
-ext = "1.1.4"
+ext = "1.1.5"
 comps = "1.0.5"
 theme = "1.0.2"
 prefs = "1.2.3"
 git = "7.1.0.202411261347-r"
-ok = "5.0.0-alpha.14"
 fk = "0.8.7"
+kermit = "2.0.4"
 
 [libraries]
-precompose = { module = "moe.tlaster:precompose", version.ref = "precompose" }
-malefic-nav = { module = "xyz.malefic:maleficnav", version.ref = "nav" }
-malefic-extensions = { module = "xyz.malefic:maleficextensions", version.ref = "ext" }
-malefic-components = { module = "xyz.malefic:maleficcomponents", version.ref = "comps" }
-malefic-theming = { module = "xyz.malefic:malefictheming", version.ref = "theme" }
-malefic-prefs = { module = "xyz.malefic:maleficprefs", version.ref = "prefs" }
-jgit = { module = "org.eclipse.jgit:org.eclipse.jgit", version.ref = "git" }
-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "ok" }
-filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "fk" }
-filekit-compose = { module = "io.github.vinceglb:filekit-compose", version.ref = "fk" }
+precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
+malefic-nav = { group = "xyz.malefic", name = "maleficnav", version.ref = "nav" }
+malefic-extensions = { group = "xyz.malefic", name = "maleficextensions", version.ref = "ext" }
+malefic-components = { group = "xyz.malefic", name = "maleficcomponents", version.ref = "comps" }
+malefic-theming = { group = "xyz.malefic", name = "malefictheming", version.ref = "theme" }
+malefic-prefs = { group = "xyz.malefic", name = "maleficprefs", version.ref = "prefs" }
+jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "git" }
+filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fk" }
+filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fk" }
+kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
 [plugins]
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

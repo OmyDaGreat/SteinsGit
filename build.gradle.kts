@@ -27,13 +27,13 @@ dependencies {
   implementation(libs.filekit.compose)
   implementation(libs.filekit.core)
   implementation(libs.precompose)
-  implementation(libs.okhttp)
+  implementation(libs.kermit)
   implementation(libs.jgit)
 }
 
 compose.desktop {
   application {
-    mainClass = "MainKt"
+    mainClass = "xyz.malefic.MainKt"
 
     nativeDistributions {
       targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

@@ -7,12 +7,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import xyz.malefic.git.GitRepository
 import java.io.File
 import org.eclipse.jgit.api.Git
 import xyz.malefic.components.text.typography.Body1
 import xyz.malefic.components.text.typography.Heading4
 import xyz.malefic.components.text.typography.Heading5
+import xyz.malefic.git.GitRepository
 
 /**
  * Composable function to display and edit repository settings.

@@ -1,6 +1,5 @@
 package xyz.malefic
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
@@ -9,20 +8,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
-import xyz.malefic.git.GitRepository
 import java.io.InputStream
-import xyz.malefic.screens.Home
-import xyz.malefic.screens.LineEditing
-import xyz.malefic.screens.MaterialSidebar
+import xyz.malefic.components.box.MaleficBox
 import xyz.malefic.components.precompose.NavWindow
+import xyz.malefic.extensions.standard.inputstream.grass
+import xyz.malefic.git.GitRepository
 import xyz.malefic.navigate.RouteManager
 import xyz.malefic.navigate.RouteManager.RoutedNavHost
 import xyz.malefic.navigate.config.MalefiConfigLoader
-import xyz.malefic.theme.MaleficTheme
+import xyz.malefic.screens.Home
+import xyz.malefic.screens.LineEditing
+import xyz.malefic.screens.MaterialSidebar
 
 /**
  * The main entry point of the application. Sets up the main window and initializes the application
@@ -34,9 +33,14 @@ fun main() = application {
     val composableMap = composableMap(currentRepo)
     val themeInputStream = getThemeInputStream()
 
-    MaleficTheme(themeInputStream) {
-      initializeRouteManager(composableMap)
-      MainLayout()
+    initializeRouteManager(composableMap)
+
+    MaleficBox(themeInputStream) {
+      Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
+        Divider(color = colors.onBackground, modifier = Modifier.fillMaxHeight().width(1.dp))
+        MaterialSidebar()
+        RoutedNavHost()
+      }
     }
   }
 }
@@ -64,11 +68,9 @@ fun composableMap(
  * @throws IllegalArgumentException if the theme file is not found.
  */
 @Composable
-fun Any.getThemeInputStream(): InputStream {
-  return javaClass.getResourceAsStream(
-    if (isSystemInDarkTheme()) "/theme/dark.json" else "/theme/light.json"
-  ) ?: throw IllegalArgumentException("Theme file not found")
-}
+fun Any.getThemeInputStream(): InputStream =
+  grass(if (isSystemInDarkTheme()) "/theme/dark.json" else "/theme/light.json")
+    ?: throw IllegalArgumentException("Theme file not found")
 
 /**
  * Initializes the route manager with the provided composable map and configuration.
@@ -81,19 +83,4 @@ fun Any.initializeRouteManager(composableMap: Map<String, @Composable (List<Stri
     this::class.java.getResourceAsStream("/routes.mfc")!!,
     MalefiConfigLoader(),
   )
-}
-
-/** The main layout of the application. */
-@Composable
-fun MainLayout() {
-  Box(
-    modifier = Modifier.fillMaxSize().background(colors.background),
-    contentAlignment = Alignment.Center,
-  ) {
-    Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-      Divider(color = colors.onBackground, modifier = Modifier.fillMaxHeight().width(1.dp))
-      MaterialSidebar()
-      RoutedNavHost()
-    }
-  }
 }

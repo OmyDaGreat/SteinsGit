@@ -1,3 +1,4 @@
+import co.touchlab.kermit.Logger
 import java.util.prefs.Preferences
 
 fun main() {
@@ -7,7 +8,7 @@ fun main() {
   val commonNode = userRoot.node("steins;git")
   clearPreferences(commonNode)
 
-  println("User Preferences Tree:")
+  Logger.d("User Preferences Tree:")
   printPreferencesTree(userRoot, 0)
 }
 
@@ -21,16 +22,16 @@ fun printPreferencesTree(node: Preferences, depth: Int) {
   val indent = "  ".repeat(depth)
 
   // Print the current node's name
-  println("$indent- ${node.name()}")
+  Logger.d("$indent- ${node.name()}")
 
   // Print the key-value pairs in the current node
   try {
     node.keys().forEach { key ->
       val value = node.get(key, "<no value>")
-      println("$indent  $key = $value")
+      Logger.d("$indent  $key = $value")
     }
   } catch (e: Exception) {
-    println("$indent  [Error reading keys: ${e.message}]")
+    Logger.d("$indent  [Error reading keys: ${e.message}]")
   }
 
   // Recursively process child nodes
@@ -39,7 +40,7 @@ fun printPreferencesTree(node: Preferences, depth: Int) {
       printPreferencesTree(node.node(childName), depth + 1)
     }
   } catch (e: Exception) {
-    println("$indent  [Error reading children: ${e.message}]")
+    Logger.d("$indent  [Error reading children: ${e.message}]")
   }
 }
 
@@ -53,7 +54,7 @@ fun clearPreferences(node: Preferences) {
   try {
     node.keys().forEach { key -> node.remove(key) }
   } catch (e: Exception) {
-    println("Error clearing keys in node '${node.name()}': ${e.message}")
+    Logger.d("Error clearing keys in node '${node.name()}': ${e.message}")
   }
 
   // Recursively clear child nodes
@@ -64,6 +65,6 @@ fun clearPreferences(node: Preferences) {
     }
     node.flush() // Ensure changes are persisted
   } catch (e: Exception) {
-    println("Error clearing children in node '${node.name()}': ${e.message}")
+    Logger.d("Error clearing children in node '${node.name()}': ${e.message}")
   }
 }

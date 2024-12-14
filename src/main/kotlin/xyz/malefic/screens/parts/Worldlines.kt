@@ -1,6 +1,6 @@
 @file:Suppress("kotlin:S1128")
 
-package xyz.malefic.screens
+package xyz.malefic.screens.parts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -15,15 +15,14 @@ import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import xyz.malefic.git.GitRepository
-import xyz.malefic.git.commands.findGitRepositories
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import xyz.malefic.prefNode
+import kotlinx.coroutines.withContext
 import xyz.malefic.components.text.typography.Body1
 import xyz.malefic.components.text.typography.Body2
 import xyz.malefic.extensions.composables.clickableWithRipple
+import xyz.malefic.git.GitRepository
+import xyz.malefic.git.commands.findGitRepositoriesFlow
+import xyz.malefic.prefNode
 import xyz.malefic.prefs.collection.PersistentArrayList
 
 /**
@@ -36,19 +35,15 @@ fun Worldlines(onRepoSelected: (GitRepository) -> Unit) {
   val repos = remember { mutableStateListOf<GitRepository>() }
   val persistentRepos = remember { PersistentArrayList<GitRepository>("steins;repo", prefNode) }
 
-  if (persistentRepos.isEmpty()) {
-    persistentRepos.addAll(findGitRepositories())
-  }
   repos.addAll(persistentRepos)
 
-  // Start a coroutine to update the persistent repos
   LaunchedEffect(Unit) {
-    CoroutineScope(Dispatchers.IO).launch {
-      val newRepos = findGitRepositories()
-      val existingRepoNames = repos.map { it.name }.toSet()
-      newRepos.forEach { repo ->
-        if (repo.name !in existingRepoNames) {
+    withContext(Dispatchers.IO) {
+      findGitRepositoriesFlow().collect { repo ->
+        if (persistentRepos.none { it.path == repo.path }) {
           persistentRepos.add(repo)
+        }
+        if (repos.none { it.path == repo.path }) {
           repos.add(repo)
         }
       }

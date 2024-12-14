@@ -1,17 +1,20 @@
 package xyz.malefic.git.commands
 
-import xyz.malefic.git.GitRepository
+import co.touchlab.kermit.Logger
 import java.io.File
-import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import org.eclipse.jgit.api.Git
+import org.eclipse.jgit.storage.file.FileRepositoryBuilder
+import xyz.malefic.git.GitRepository
 
 /**
  * Finds all Git repositories in the user's home directory and its subdirectories.
  *
- * @return a list of `GitRepository` objects representing the found repositories.
+ * @return a flow of `GitRepository` objects representing the found repositories.
  */
-fun findGitRepositories(): List<GitRepository> = runBlocking {
-  val repos = mutableListOf<GitRepository>()
-  println("Searching for Git repositories...")
+fun findGitRepositoriesFlow(): Flow<GitRepository> = flow {
+  Logger.d("Searching for Git repositories...")
 
   val repoDirs =
     File(System.getProperty("user.home"))
@@ -19,33 +22,26 @@ fun findGitRepositories(): List<GitRepository> = runBlocking {
       .filter { it.isDirectory && File(it, ".git").exists() }
       .toList()
 
-  val deferredRepos =
-    repoDirs.map { repoDir ->
-      async(Dispatchers.IO) {
-        println("Found: ${repoDir.name}")
+  repoDirs.forEach { repoDir ->
+    Logger.d("Found: ${repoDir.name}")
 
-        val name = repoDir.name
-        val path = repoDir.absolutePath
-        val currentBranch = runGitCommand(repoDir, "rev-parse --abbrev-ref HEAD")
-        val remoteUrl = runGitCommand(repoDir, "remote get-url origin")
-        val isDirty = runGitCommand(repoDir, "status --porcelain").isNotEmpty()
+    val repository =
+      FileRepositoryBuilder()
+        .setGitDir(File(repoDir, ".git"))
+        .readEnvironment()
+        .findGitDir()
+        .build()
+    val git = Git(repository)
 
-        GitRepository(name, path, currentBranch, remoteUrl, isDirty)
-      }
-    }
+    val name = repoDir.name
+    val path = repoDir.absolutePath
+    val currentBranch = repository.branch
+    val remoteUrl =
+      git.remoteList().call().firstOrNull()?.urIs?.firstOrNull()?.toString() ?: "<no remote>"
+    val isDirty = git.status().call().hasUncommittedChanges()
 
-  repos.addAll(deferredRepos.awaitAll())
-  repos
-}
+    emit(GitRepository(name, path, currentBranch, remoteUrl, isDirty))
+  }
 
-/**
- * Runs a Git command in the specified repository directory.
- *
- * @param repoDir the directory of the Git repository.
- * @param command the Git command to run.
- * @return the output of the Git command.
- */
-fun runGitCommand(repoDir: File, command: String): String {
-  val process = ProcessBuilder("xyz/malefic/git/malefic/git", *command.split(" ").toTypedArray()).directory(repoDir).start()
-  return process.inputStream.bufferedReader().readText().trim()
+  Logger.d("Repo search complete.")
 }
