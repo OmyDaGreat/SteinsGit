@@ -9,7 +9,7 @@ prefs = "1.2.3"
 git = "7.1.0.202411261347-r"
 fk = "0.8.7"
 kermit = "2.0.5"
-slf = "2.0.9"
+slf = "2.0.16"
 
 [libraries]
 precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
