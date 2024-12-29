@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
-import xyz.malefic.components.text.typography.Body1
-import xyz.malefic.extensions.precompose.gate
-import xyz.malefic.navigate.RouteManager
-import xyz.malefic.navigate.RouteManager.navi
+import xyz.malefic.compose.comps.text.typography.Body1
+import xyz.malefic.compose.nav.RouteManager
+import xyz.malefic.compose.nav.RouteManager.navi
+import xyz.malefic.ext.precompose.gate
 
 /**
  * Composable function that displays a sidebar with navigation buttons. The buttons are generated
@@ -24,18 +24,18 @@ import xyz.malefic.navigate.RouteManager.navi
  */
 @Composable
 fun MaterialSidebar() {
-  Column(
-    modifier = Modifier.width(200.dp).fillMaxHeight(),
-    verticalArrangement = Arrangement.Center,
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    RouteManager.getNonHiddenRoutes().forEach { route ->
-      Button(
-        onClick = { navi gate route.name },
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
-      ) {
-        Body1(route.name.capitalize(Locale.current))
-      }
+    Column(
+        modifier = Modifier.width(200.dp).fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        RouteManager.getNonHiddenRoutes().forEach { route ->
+            Button(
+                onClick = { navi gate route.name },
+                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
+            ) {
+                Body1(route.name.capitalize(Locale.current))
+            }
+        }
     }
-  }
 }

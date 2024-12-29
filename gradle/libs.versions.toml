@@ -1,23 +1,26 @@
 [versions]
-spotless = "7.0.0.BETA4"
 precompose = "1.6.2"
-nav = "1.1.5"
-ext = "1.1.5"
-comps = "1.0.5"
-theme = "1.0.2"
-prefs = "1.2.3"
+nav = "1.2.2"
+ext = "1.3.3"
+comps = "1.1.0"
+theme = "1.1.2"
+prefs = "1.3.0"
 git = "7.1.0.202411261347-r"
-fk = "0.8.7"
+fk = "0.8.8"
 kermit = "2.0.5"
 slf = "2.0.16"
+lint = "5.0.1"
+kotlin = "2.1.0"
+compose = "1.8.0-dev1905"
 
 [libraries]
 precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
-malefic-nav = { group = "xyz.malefic", name = "maleficnav", version.ref = "nav" }
-malefic-extensions = { group = "xyz.malefic", name = "maleficextensions", version.ref = "ext" }
-malefic-components = { group = "xyz.malefic", name = "maleficcomponents", version.ref = "comps" }
-malefic-theming = { group = "xyz.malefic", name = "malefictheming", version.ref = "theme" }
-malefic-prefs = { group = "xyz.malefic", name = "maleficprefs", version.ref = "prefs" }
+malefic-nav = { group = "xyz.malefic.compose", name = "nav", version.ref = "nav" }
+malefic-components = { group = "xyz.malefic.compose", name = "comps", version.ref = "comps" }
+malefic-theming = { group = "xyz.malefic.compose", name = "theming", version.ref = "theme" }
+malefic-prefs = { group = "xyz.malefic.compose", name = "prefs", version.ref = "prefs" }
+ext-core = { group = "xyz.malefic", name = "ext-core", version.ref = "ext" }
+ext-compose = { group = "xyz.malefic", name = "ext-compose", version.ref = "ext" }
 jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "git" }
 filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fk" }
 filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fk" }
@@ -25,4 +28,13 @@ kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf" }
 
 [plugins]
-spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+kotlinter = { id = "org.jmailen.kotlinter", version.ref = "lint" }
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+[bundles]
+malefic-ext = ["ext-core", "ext-compose"]
+filekit = ["filekit-core", "filekit-compose"]
+malefic-compose = ["malefic-components", "malefic-nav", "malefic-prefs", "malefic-theming"]

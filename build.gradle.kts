@@ -1,51 +1,54 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-  kotlin("jvm")
-  kotlin("plugin.serialization") version "2.1.0"
-  id("org.jetbrains.compose")
-  id("org.jetbrains.kotlin.plugin.compose")
-  alias(libs.plugins.spotless)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.kotlinter)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin)
 }
 
 group = "xyz.malefic"
 version = "1.0.0"
 
 repositories {
-  mavenCentral()
-  maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-  google()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    gradlePluginPortal()
+    mavenCentral()
+    google()
 }
 
 dependencies {
-  implementation(compose.desktop.currentOs)
-  implementation(libs.malefic.extensions)
-  implementation(libs.malefic.components)
-  implementation(libs.malefic.theming)
-  implementation(libs.malefic.prefs)
-  implementation(libs.malefic.nav)
-  implementation(libs.filekit.compose)
-  implementation(libs.filekit.core)
-  implementation(libs.precompose)
-  implementation(libs.kermit)
-  implementation(libs.slf4j)
-  implementation(libs.jgit)
+    implementation(compose.desktop.currentOs)
+    implementation(libs.bundles.malefic.compose)
+    implementation(libs.bundles.malefic.ext)
+    implementation(libs.bundles.filekit)
+    implementation(libs.precompose)
+    implementation(libs.kermit)
+    implementation(libs.slf4j)
+    implementation(libs.jgit)
 }
 
 compose.desktop {
-  application {
-    mainClass = "xyz.malefic.MainKt"
+    application {
+        mainClass = "xyz.malefic.MainKt"
 
-    nativeDistributions {
-      targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-      packageName = "SteinsGit"
-      packageVersion = "1.0.0"
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb, TargetFormat.AppImage)
+            packageName = "SteinsGit"
+            packageVersion = "1.0.0"
+        }
     }
-  }
 }
 
-spotless {
-  kotlin {
-    ktfmt().googleStyle()
-  }
+tasks.apply {
+    create("formatAndLintKotlin") {
+        group = "formatting"
+        description = "Fix Kotlin code style deviations with kotlinter"
+        dependsOn(formatKotlin)
+        dependsOn(lintKotlin)
+    }
+    build {
+        dependsOn(named("formatAndLintKotlin"))
+    }
 }
