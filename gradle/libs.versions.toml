@@ -5,6 +5,7 @@ ext = "1.3.3"
 comps = "1.1.0"
 theme = "1.1.2"
 prefs = "1.3.0"
+engine = "1.1.2"
 git = "7.1.0.202411261347-r"
 fk = "0.8.8"
 kermit = "2.0.5"
@@ -15,12 +16,13 @@ compose = "1.8.0-dev1905"
 
 [libraries]
 precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
-malefic-nav = { group = "xyz.malefic.compose", name = "nav", version.ref = "nav" }
 malefic-components = { group = "xyz.malefic.compose", name = "comps", version.ref = "comps" }
 malefic-theming = { group = "xyz.malefic.compose", name = "theming", version.ref = "theme" }
+malefic-engine = { group = "xyz.malefic.compose", name = "engine", version.ref = "engine" }
 malefic-prefs = { group = "xyz.malefic.compose", name = "prefs", version.ref = "prefs" }
-ext-core = { group = "xyz.malefic", name = "ext-core", version.ref = "ext" }
+malefic-nav = { group = "xyz.malefic.compose", name = "nav", version.ref = "nav" }
 ext-compose = { group = "xyz.malefic", name = "ext-compose", version.ref = "ext" }
+ext-core = { group = "xyz.malefic", name = "ext-core", version.ref = "ext" }
 jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "git" }
 filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fk" }
 filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fk" }
@@ -37,4 +39,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 [bundles]
 malefic-ext = ["ext-core", "ext-compose"]
 filekit = ["filekit-core", "filekit-compose"]
-malefic-compose = ["malefic-components", "malefic-nav", "malefic-prefs", "malefic-theming"]
+malefic-compose = ["malefic-components", "malefic-nav", "malefic-prefs", "malefic-theming", "malefic-engine"]

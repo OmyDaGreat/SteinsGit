@@ -1,13 +1,13 @@
 package xyz.malefic.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
@@ -26,6 +26,13 @@ import org.eclipse.jgit.api.Git
 import xyz.malefic.compose.comps.text.typography.Body1
 import xyz.malefic.compose.comps.text.typography.Heading4
 import xyz.malefic.compose.comps.text.typography.Heading5
+import xyz.malefic.compose.engine.factory.ButtonFactory
+import xyz.malefic.compose.engine.factory.ColumnFactory
+import xyz.malefic.compose.engine.factory.RowFactory
+import xyz.malefic.compose.engine.pocket.background
+import xyz.malefic.compose.engine.pocket.fuel
+import xyz.malefic.compose.engine.pocket.padding
+import xyz.malefic.compose.engine.pocket.timesAssign
 import xyz.malefic.git.GitRepository
 import java.io.File
 
@@ -52,31 +59,58 @@ fun LineEditing(
         branches = git.branchList().call().map { it.name }
     }
 
-    Column(modifier = Modifier.padding(16.dp)) {
-        Heading4("Repository Settings")
-        Spacer(modifier = Modifier.height(8.dp))
+    ColumnFactory {
+        fuel {
+            Heading4("Repository Settings")
+        }.space(24.dp)() // Increased spacing for better separation
 
-        RepoNameField(name) { name = it }
-        Spacer(modifier = Modifier.height(8.dp))
+        Card(
+            shape = RoundedCornerShape(8.dp),
+            elevation = 4.dp,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp), // Padding around the card
+        ) {
+            ColumnFactory {
+                fuel {
+                    RepoNameField(name) { name = it }
+                }.space(16.dp)()
 
-        RepoPathField(path) { path = it }
-        Spacer(modifier = Modifier.height(8.dp))
+                fuel {
+                    RepoPathField(path) { path = it }
+                }.space(16.dp)()
 
-        CurrentBranchField(currentBranch) { currentBranch = it }
-        Spacer(modifier = Modifier.height(8.dp))
+                fuel {
+                    CurrentBranchField(currentBranch) { currentBranch = it }
+                }.space(16.dp)()
 
-        BranchesList(branches, currentBranch) { branch ->
-            currentBranch = branch
-            val git = Git.open(File(repo.path))
-            git.checkout().setName(branch).call()
+                fuel {
+                    BranchesList(branches, currentBranch) { branch ->
+                        currentBranch = branch
+                        val git = Git.open(File(repo.path))
+                        git.checkout().setName(branch).call()
+                    }
+                }.space(16.dp)()
+
+                fuel {
+                    AutoUpdateCheckbox(autoUpdate) { autoUpdate = it }
+                }.space(16.dp)()
+
+                SaveButton(repo, name, path, currentBranch, autoUpdate, onRepoUpdate)
+            } *= {
+                modifier = Modifier.padding(16.dp) // Padding inside the card
+            }
         }
-        Spacer(modifier = Modifier.height(8.dp))
-
-        AutoUpdateCheckbox(autoUpdate) { autoUpdate = it }
-        Spacer(modifier = Modifier.height(8.dp))
-
-        SaveButton(repo, name, path, currentBranch, autoUpdate, onRepoUpdate)
-    }
+    }.apply {
+        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+    }.compose()
+        .padding(16.dp)
+        .background()()
 }
 
 /**
@@ -151,13 +185,15 @@ fun BranchesList(
 ) {
     Heading5("Branches")
     branches.forEach { branch ->
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        RowFactory {
             RadioButton(
                 selected = branch.contains(currentBranch),
                 onClick = { onBranchSelect(branch) },
                 colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary),
             )
             Body1(branch)
+        } *= {
+            verticalAlignment = Alignment.CenterVertically
         }
     }
 }
@@ -173,9 +209,11 @@ fun AutoUpdateCheckbox(
     autoUpdate: Boolean,
     onAutoUpdateChange: (Boolean) -> Unit,
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    RowFactory {
         Checkbox(checked = autoUpdate, onCheckedChange = onAutoUpdateChange)
         Body1("Auto Update")
+    } *= {
+        verticalAlignment = Alignment.CenterVertically
     }
 }
 
@@ -198,14 +236,13 @@ fun SaveButton(
     autoUpdate: Boolean,
     onRepoUpdate: (GitRepository) -> Unit,
 ) {
-    Button(
+    ButtonFactory {
+        Body1("Save")
+    } *= {
         onClick = {
             val updatedRepo =
                 repo.copy(name = name, path = path, currentBranch = currentBranch, autoUpdate = autoUpdate)
             onRepoUpdate(updatedRepo)
-        },
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary),
-    ) {
-        Body1("Save")
+        }
     }
 }

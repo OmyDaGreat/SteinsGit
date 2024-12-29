@@ -1,21 +1,20 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package xyz.malefic
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.width
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
 import xyz.malefic.compose.comps.box.MaleficBox
 import xyz.malefic.compose.comps.precompose.NavWindow
+import xyz.malefic.compose.engine.factory.RowFactory
+import xyz.malefic.compose.engine.pocket.*
 import xyz.malefic.compose.nav.RouteManager
 import xyz.malefic.compose.nav.RouteManager.RoutedNavHost
 import xyz.malefic.compose.nav.config.MalefiConfigLoader
@@ -41,10 +40,13 @@ fun main() =
             initializeRouteManager(composableMap)
 
             MaleficBox(themeInputStream) {
-                Row(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-                    MaterialSidebar()
-                    Divider(color = colors.onBackground, modifier = Modifier.fillMaxHeight().width(1.dp))
+                RowFactory {
+                    fuel {
+                        MaterialSidebar()
+                    }.divide()()
                     RoutedNavHost()
+                } *= {
+                    modifier = Modifier.fillMaxWidth().fillMaxHeight()
                 }
             }
         }

@@ -2,16 +2,15 @@
 
 package xyz.malefic.screens.parts
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.MaterialTheme.colors
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -23,6 +22,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import xyz.malefic.compose.comps.text.typography.Body1
 import xyz.malefic.compose.comps.text.typography.Body2
+import xyz.malefic.compose.engine.factory.ColumnFactory
+import xyz.malefic.compose.engine.pocket.background
 import xyz.malefic.compose.prefs.collection.PersistentArrayList
 import xyz.malefic.git.GitRepository
 import xyz.malefic.git.commands.findGitRepositoriesFlow
@@ -59,24 +60,38 @@ fun Worldlines(
         }
     }
 
-    // Column layout for the sidebar
-    Column(modifier = Modifier.fillMaxHeight().background(colors.background).width(200.dp)) {
-        // Heading for the repositories section
+    ColumnFactory {
         Body1("Repositories", modifier = Modifier.padding(16.dp))
 
-        // LazyColumn to display the list of repositories
-        LazyColumn {
-            items(repos) { repo ->
-                // Display each repository name as a clickable item
-                Body2(
-                    text = repo.name,
-                    modifier =
-                        Modifier
-                            .clickable { onRepoSelected(repo) }
-                            .padding(8.dp)
-                            .horizontalScroll(rememberScrollState()),
-                )
+        Card(
+            shape = RoundedCornerShape(8.dp),
+            elevation = 4.dp,
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .width(200.dp)
+                    .padding(8.dp), // Padding around the card
+        ) {
+            LazyColumn(
+                modifier = Modifier.padding(8.dp), // Padding inside the card
+            ) {
+                items(repos) { repo ->
+                    Body2(
+                        text = repo.name,
+                        modifier =
+                            Modifier
+                                .clickable { onRepoSelected(repo) }
+                                .padding(8.dp)
+                                .horizontalScroll(rememberScrollState()),
+                    )
+                }
             }
         }
-    }
+    }.apply {
+        modifier =
+            Modifier
+                .fillMaxHeight()
+                .width(220.dp)
+    }.compose()
+        .background()()
 }
