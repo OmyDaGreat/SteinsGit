@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import xyz.malefic.compose.comps.box.BackgroundBox
 import xyz.malefic.compose.engine.factory.ColumnFactory
 import xyz.malefic.compose.engine.factory.RowFactory
-import xyz.malefic.compose.engine.pocket.timesAssign
+import xyz.malefic.compose.engine.factory.divAssign
 import xyz.malefic.git.GitRepository
 import xyz.malefic.screens.parts.Paradox
 import xyz.malefic.screens.parts.Worldlines
@@ -28,15 +28,15 @@ fun Home(currentRepo: MutableState<GitRepository?>) {
             // Column for RepoList
             ColumnFactory {
                 Worldlines(onRepoSelected = { repo -> currentRepo.value = repo }, currentRepo)
-            } *= {
+            } /= {
                 modifier = Modifier.weight(1f).fillMaxHeight().padding(end = 8.dp)
             }
 
             // Column for Paradox
-            ColumnFactory { Paradox() } *= {
+            ColumnFactory { Paradox() } /= {
                 modifier = Modifier.weight(2f).fillMaxHeight().padding(start = 8.dp)
             }
-        } *= {
+        } /= {
             horizontalArrangement = Arrangement.Start
             verticalAlignment = Alignment.Top
             modifier = Modifier.fillMaxSize().padding(16.dp)

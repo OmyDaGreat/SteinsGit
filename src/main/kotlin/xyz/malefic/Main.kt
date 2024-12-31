@@ -1,5 +1,3 @@
-@file:Suppress("ktlint:standard:no-wildcard-imports")
-
 package xyz.malefic
 
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -14,7 +12,9 @@ import androidx.compose.ui.window.application
 import xyz.malefic.compose.comps.box.MaleficBox
 import xyz.malefic.compose.comps.precompose.NavWindow
 import xyz.malefic.compose.engine.factory.RowFactory
-import xyz.malefic.compose.engine.pocket.*
+import xyz.malefic.compose.engine.factory.divAssign
+import xyz.malefic.compose.engine.fuel.divide
+import xyz.malefic.compose.engine.fuel.fuel
 import xyz.malefic.compose.nav.RouteManager
 import xyz.malefic.compose.nav.RouteManager.RoutedNavHost
 import xyz.malefic.compose.nav.config.MalefiConfigLoader
@@ -45,7 +45,7 @@ fun main() =
                         MaterialSidebar()
                     }.divide()()
                     RoutedNavHost()
-                } *= {
+                } /= {
                     modifier = Modifier.fillMaxWidth().fillMaxHeight()
                 }
             }

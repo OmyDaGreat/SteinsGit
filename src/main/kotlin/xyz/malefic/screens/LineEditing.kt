@@ -1,6 +1,5 @@
 package xyz.malefic.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,10 +28,13 @@ import xyz.malefic.compose.comps.text.typography.Heading5
 import xyz.malefic.compose.engine.factory.ButtonFactory
 import xyz.malefic.compose.engine.factory.ColumnFactory
 import xyz.malefic.compose.engine.factory.RowFactory
-import xyz.malefic.compose.engine.pocket.background
-import xyz.malefic.compose.engine.pocket.fuel
-import xyz.malefic.compose.engine.pocket.padding
-import xyz.malefic.compose.engine.pocket.timesAssign
+import xyz.malefic.compose.engine.factory.div
+import xyz.malefic.compose.engine.factory.divAssign
+import xyz.malefic.compose.engine.factory.timesAssign
+import xyz.malefic.compose.engine.fuel.background
+import xyz.malefic.compose.engine.fuel.fuel
+import xyz.malefic.compose.engine.fuel.padding
+import xyz.malefic.compose.engine.fuel.space
 import xyz.malefic.git.GitRepository
 import java.io.File
 
@@ -98,19 +100,20 @@ fun LineEditing(
                 }.space(16.dp)()
 
                 SaveButton(repo, name, path, currentBranch, autoUpdate, onRepoUpdate)
-            } *= {
+            } /= {
                 modifier = Modifier.padding(16.dp) // Padding inside the card
             }
         }
-    }.apply {
+    } / {
         horizontalAlignment = Alignment.CenterHorizontally
         verticalArrangement = Arrangement.Center
         modifier =
             Modifier
                 .fillMaxSize()
-    }.compose()
-        .padding(16.dp)
-        .background()()
+    } *= {
+        padding(16.dp)
+        background()
+    }
 }
 
 /**
@@ -192,7 +195,7 @@ fun BranchesList(
                 colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colors.primary),
             )
             Body1(branch)
-        } *= {
+        } /= {
             verticalAlignment = Alignment.CenterVertically
         }
     }
@@ -212,7 +215,7 @@ fun AutoUpdateCheckbox(
     RowFactory {
         Checkbox(checked = autoUpdate, onCheckedChange = onAutoUpdateChange)
         Body1("Auto Update")
-    } *= {
+    } /= {
         verticalAlignment = Alignment.CenterVertically
     }
 }
@@ -238,7 +241,7 @@ fun SaveButton(
 ) {
     ButtonFactory {
         Body1("Save")
-    } *= {
+    } /= {
         onClick = {
             val updatedRepo =
                 repo.copy(name = name, path = path, currentBranch = currentBranch, autoUpdate = autoUpdate)

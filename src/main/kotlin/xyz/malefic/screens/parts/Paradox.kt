@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -23,11 +22,15 @@ import kotlinx.coroutines.launch
 import xyz.malefic.compose.comps.text.typography.Body1
 import xyz.malefic.compose.comps.text.typography.Heading5
 import xyz.malefic.compose.engine.factory.ButtonFactory
+import xyz.malefic.compose.engine.factory.CardFactory
 import xyz.malefic.compose.engine.factory.ColumnFactory
-import xyz.malefic.compose.engine.pocket.background
-import xyz.malefic.compose.engine.pocket.fuel
-import xyz.malefic.compose.engine.pocket.padding
-import xyz.malefic.compose.engine.pocket.timesAssign
+import xyz.malefic.compose.engine.factory.div
+import xyz.malefic.compose.engine.factory.divAssign
+import xyz.malefic.compose.engine.factory.timesAssign
+import xyz.malefic.compose.engine.fuel.background
+import xyz.malefic.compose.engine.fuel.fuel
+import xyz.malefic.compose.engine.fuel.padding
+import xyz.malefic.compose.engine.fuel.space
 import xyz.malefic.git.commands.cloneRepository
 
 @Composable
@@ -41,14 +44,7 @@ fun Paradox() {
             Heading5("Clone a Repository")
         }.space(24.dp)() // Increased spacing for better separation
 
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            elevation = 4.dp,
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp), // Padding around the card
-        ) {
+        CardFactory {
             ColumnFactory {
                 fuel {
                     RepoUrlInput(repoUrl) { repoUrl = it }
@@ -61,9 +57,15 @@ fun Paradox() {
                 fuel {
                     CloneButton(repoUrl, destinationPath) { statusMessage = it }
                 }.space(16.dp)()
-            } *= {
+            } /= {
                 modifier = Modifier.padding(16.dp) // Padding inside the card
             }
+        } / {
+            shape = RoundedCornerShape(8.dp)
+            elevation = 4.dp
+            modifier = Modifier.fillMaxWidth()
+        } *= {
+            padding(8.dp)
         }
 
         StatusMessage(statusMessage)
@@ -73,9 +75,10 @@ fun Paradox() {
         modifier =
             Modifier
                 .fillMaxSize()
-    }.compose()
-        .padding(16.dp)
-        .background(MaterialTheme.colors.background)()
+    } *= {
+        padding(16.dp)
+        background(MaterialTheme.colors.background)
+    }
 }
 
 /**
@@ -124,7 +127,7 @@ fun DestinationPathInput(
                 modifier = Modifier.fillMaxWidth(),
             )
         }.space(8.dp)()
-        ButtonFactory { Body1("Choose Directory") } *= {
+        ButtonFactory { Body1("Choose Directory") } /= {
             onClick = { launcher.launch() }
         }
     }()
@@ -143,7 +146,7 @@ fun CloneButton(
     destinationPath: String,
     onStatusChange: (String) -> Unit,
 ) {
-    ButtonFactory { Body1("Clone Repository") } *= {
+    ButtonFactory { Body1("Clone Repository") } /= {
         onClick = {
             CoroutineScope(Dispatchers.IO).launch {
                 try {

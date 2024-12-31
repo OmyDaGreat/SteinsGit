@@ -6,11 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -22,8 +20,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import xyz.malefic.compose.comps.text.typography.Body1
 import xyz.malefic.compose.comps.text.typography.Body2
+import xyz.malefic.compose.engine.factory.CardFactory
 import xyz.malefic.compose.engine.factory.ColumnFactory
-import xyz.malefic.compose.engine.pocket.background
+import xyz.malefic.compose.engine.factory.div
+import xyz.malefic.compose.engine.factory.timesAssign
+import xyz.malefic.compose.engine.fuel.background
+import xyz.malefic.compose.engine.fuel.padding
 import xyz.malefic.compose.prefs.collection.PersistentArrayList
 import xyz.malefic.git.GitRepository
 import xyz.malefic.git.commands.findGitRepositoriesFlow
@@ -63,15 +65,7 @@ fun Worldlines(
     ColumnFactory {
         Body1("Repositories", modifier = Modifier.padding(16.dp))
 
-        Card(
-            shape = RoundedCornerShape(8.dp),
-            elevation = 4.dp,
-            modifier =
-                Modifier
-                    .fillMaxHeight()
-                    .width(200.dp)
-                    .padding(8.dp), // Padding around the card
-        ) {
+        CardFactory {
             LazyColumn(
                 modifier = Modifier.padding(8.dp), // Padding inside the card
             ) {
@@ -86,12 +80,16 @@ fun Worldlines(
                     )
                 }
             }
+        } / {
+            shape = RoundedCornerShape(8.dp)
+            elevation = 4.dp
+            modifier = Modifier.fillMaxHeight()
+        } *= {
+            padding(8.dp)
         }
-    }.apply {
-        modifier =
-            Modifier
-                .fillMaxHeight()
-                .width(220.dp)
-    }.compose()
-        .background()()
+    } / {
+        modifier = Modifier.fillMaxHeight()
+    } *= {
+        background()
+    }
 }
