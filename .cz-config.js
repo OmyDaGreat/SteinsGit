@@ -22,7 +22,7 @@ module.exports = {
     },
     {value: 'WIP', name: 'WIP:      Work in progress'},
     {value: 'revert', name: 'revert:   Revert to a prior commit'},
-    {value: 'update', name: 'update:      Update external tools or libraries'},
+    {value: 'update', name: 'update:   Update external tools or libraries'},
   ],
 
   scopes: [{name: 'home'}, {name: 'lineediting'}, {name: 'materialsidebar'}, {name: 'paradox'}, {name: 'worldlines'}, {name: 'nav'}, {name: 'theme'}],
