@@ -11,7 +11,7 @@ fk = "0.8.8"
 kermit = "2.0.5"
 slf = "2.0.16"
 lint = "5.0.1"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 compose = "1.7.3"
 
 [libraries]
