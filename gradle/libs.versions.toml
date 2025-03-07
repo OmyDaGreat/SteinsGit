@@ -12,7 +12,7 @@ kermit = "2.0.5"
 slf = "2.0.16"
 lint = "5.0.1"
 kotlin = "2.1.10"
-compose = "1.7.3"
+compose = "1.8.0+dev2163"
 
 [libraries]
 precompose = { group = "moe.tlaster", name = "precompose", version.ref = "precompose" }
