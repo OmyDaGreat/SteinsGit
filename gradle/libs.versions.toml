@@ -25,7 +25,8 @@ ext-compose = { group = "xyz.malefic", name = "ext-compose", version.ref = "ext"
 ext-core = { group = "xyz.malefic", name = "ext-core", version.ref = "ext" }
 jgit = { group = "org.eclipse.jgit", name = "org.eclipse.jgit", version.ref = "git" }
 filekit-core = { group = "io.github.vinceglb", name = "filekit-core", version.ref = "fk" }
-filekit-compose = { group = "io.github.vinceglb", name = "filekit-compose", version.ref = "fk" }
+filekit-dialogs = { group = "io.github.vinceglb", name = "filekit-dialogs", version.ref = "fk" }
+filekit-dialogs-compose = { group = "io.github.vinceglb", name = "filekit-dialogs", version.ref = "fk" }
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf" }
 
@@ -38,5 +39,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 
 [bundles]
 malefic-ext = ["ext-core", "ext-compose"]
-filekit = ["filekit-core", "filekit-compose"]
+filekit = ["filekit-core", "filekit-dialogs", "filekit-dialogs-compose"]
 malefic-compose = ["malefic-components", "malefic-nav", "malefic-prefs", "malefic-theming", "malefic-engine"]

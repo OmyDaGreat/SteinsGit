@@ -1,8 +1,11 @@
 package xyz.malefic.screens.parts
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -15,9 +18,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.vinceglb.filekit.compose.rememberDirectoryPickerLauncher
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.dialogs.openDirectoryPicker
+import io.github.vinceglb.filekit.path
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import xyz.malefic.compose.comps.text.typography.Body1
 import xyz.malefic.compose.comps.text.typography.Heading5
@@ -111,26 +118,27 @@ fun DestinationPathInput(
     destinationPath: String,
     onValueChange: (String) -> Unit,
 ) {
-    val launcher =
-        rememberDirectoryPickerLauncher(
-            title = "Pick a directory",
-            initialDirectory = System.getProperty("user.home"),
-        ) { directory ->
-            directory?.path?.let { onValueChange(it) }
-        }
-    ColumnFactory {
-        fuel {
-            TextField(
-                value = destinationPath,
-                onValueChange = onValueChange,
-                label = { Body1("Destination Path") },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }.space(8.dp)()
+    Column {
+        TextField(
+            value = destinationPath,
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            label = { Body1("Destination Path") },
+        )
+        Spacer(Modifier.height(8.dp))
         ButtonFactory { Body1("Choose Directory") } /= {
-            onClick = { launcher.launch() }
+            onClick = {
+                GlobalScope.launch {
+                    FileKit
+                        .openDirectoryPicker(
+                            "Pick a directory",
+                            PlatformFile(System.getProperty("user.home")),
+                        )?.path
+                        ?.let { onValueChange(it) }
+                }
+            }
         }
-    }()
+    }
 }
 
 /**
